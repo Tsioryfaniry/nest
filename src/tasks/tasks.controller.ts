@@ -1,23 +1,35 @@
 
-import { Controller, Get, Req, Param, HttpCode, HostParam, Post, Body } from '@nestjs/common';
+import { Controller, Get, Req, Param, HttpCode, HostParam, Post, Body, ParseIntPipe, HttpStatus } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { Request } from 'express';
 import { CreateCatDto } from 'src/cateTodo/create-cat-dto';
+import { Response } from 'express'
 
 @Controller("tasks")
 export class TasksController {
   constructor(private catsService: TasksService) {}
-    // @Get()
-    // @HttpCode(304)
-    // test(@HostParam() account: string):string{
-    //   return account
-    // }
+    @Get()
+    @HttpCode(304)
+    test():string{
+      return 'test'
+    }
 
-    // @Get("/service")
-    // getAllService(){
+    @Get("/service")
+    getAllService(){
 
-    //     return this.catsService.getAllTask()
-    // }
+        return this.catsService.getAllTask()
+    }
+//     @Get(':id')
+//       async findOne(@Param('id', ParseIntPipe) id: number) {
+//       return this.catsService.findOne(id); 
+// }
+@Get(':id')
+async findOne(
+  @Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }))
+  id: number,
+) {
+  return this.catsService.findOne(id);
+}
     // @Get("/get")
     // findAll(@Req() request:Request):string{
     //   const userId = request.body
@@ -41,4 +53,5 @@ export class TasksController {
       
     //   return `this action creact : ${tasks}`
     // }
+   
 }

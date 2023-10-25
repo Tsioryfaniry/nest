@@ -7,4 +7,7 @@ export class TasksService {
   getAllTask(){
     return this.tasks
   }
+  findOne(id){
+    return 'this.tasks'
+  }
 }
