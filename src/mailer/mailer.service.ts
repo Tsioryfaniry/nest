@@ -6,8 +6,8 @@ export class MailerService {
     private async transporter(){
         const testAccount = await nodemailer.createTestAccount()
         const transport = nodemailer.createTransport({
-            // host: "http://localhost/",
-            // port: "1025",
+            host: "http://localhost/",
+            port: 1025,
             ignoreTLS: true,
             auth:{
                 user: testAccount.user,
